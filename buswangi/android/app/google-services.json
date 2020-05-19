@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "642583256665",
+    "firebase_url": "https://buswangi-a4234.firebaseio.com",
+    "project_id": "buswangi-a4234",
+    "storage_bucket": "buswangi-a4234.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642583256665:android:99c89659da9983d63b5b48",
+        "android_client_info": {
+          "package_name": "com.example.buswangi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642583256665-79v94ld5kaoegsm85fi6g95vo3ktar8q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.buswangi",
+            "certificate_hash": "1b276e33dd560b079d4a8ff4630e2fadbe81e783"
+          }
+        },
+        {
+          "client_id": "642583256665-4epo9f7gken6eoqc1qod822gco3fcq3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgvHIqwI0RwiahtOMOQkGpPDbJRiI53OE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642583256665-4epo9f7gken6eoqc1qod822gco3fcq3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
