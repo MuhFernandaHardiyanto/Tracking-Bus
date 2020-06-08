@@ -95,8 +95,8 @@ class _LoginState extends State<Login> {
           _isLoading = false;
         });
         // sharedPreferences.setString("RHFnamF5VWYydVI2QzVkbTZyTUdYR1lMUnRqRDhDQTJTbkVVN2tIMQ==", jsonResponse['RHFnamF5VWYydVI2QzVkbTZyTUdYR1lMUnRqRDhDQTJTbkVVN2tIMQ==']);
-        sharedPreferences.setString("api_token", jsonResponse['api_token']);
-        print("Shared Success=> $jsonResponse");
+        sharedPreferences.setString("api_token", jsonResponse["data"]["api_token"]);
+        print(json.encode(jsonResponse["data"]["api_token"]));
         // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Beranda()), (Route<dynamic> route) => false);
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Beranda()));
       }

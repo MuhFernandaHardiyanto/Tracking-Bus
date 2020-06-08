@@ -20,8 +20,7 @@ class _BerandaState extends State<Beranda> {
 
   checkLoginStatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    print(sharedPreferences.getString("api_token"));
-    if(sharedPreferences.getString("RHFnamF5VWYydVI2QzVkbTZyTUdYR1lMUnRqRDhDQTJTbkVVN2tIMQ==") == null) {
+    if(sharedPreferences.getString("api_token") == null) {
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) =>   Login()), (Route<dynamic> route) => false);
     }
   }
