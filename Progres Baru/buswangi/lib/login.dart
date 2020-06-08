@@ -79,22 +79,26 @@ class _LoginState extends State<Login> {
   //   }
   // }
 
-  signIn(String email, pass) async {
+  signIn(String email, password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map data = {
       'email': email,
-      'password': pass
+      'password': password
     };
-    var jsonResponse = null;
-    var response = await http.post("192.168.1.1:8000", body: data);
+    var jsonResponse;
+    var response = await http.post("http://192.168.43.94:8000/login", body: data);
+    print(response.statusCode);
     if(response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       if(jsonResponse != null) {
         setState(() {
           _isLoading = false;
         });
-        sharedPreferences.setString("token", jsonResponse['token']);
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Beranda()), (Route<dynamic> route) => false);
+        // sharedPreferences.setString("RHFnamF5VWYydVI2QzVkbTZyTUdYR1lMUnRqRDhDQTJTbkVVN2tIMQ==", jsonResponse['RHFnamF5VWYydVI2QzVkbTZyTUdYR1lMUnRqRDhDQTJTbkVVN2tIMQ==']);
+        sharedPreferences.setString("api_token", jsonResponse['api_token']);
+        print("Shared Success=> $jsonResponse");
+        // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Beranda()), (Route<dynamic> route) => false);
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Beranda()));
       }
     }
     else {
