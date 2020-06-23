@@ -11,6 +11,13 @@ final label = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+final judul = TextStyle(
+  color: Colors.white,
+  fontSize: 30.0,
+  fontFamily: 'OpenSans',
+  fontWeight: FontWeight.bold,
+);
+
 final txtappbar = TextStyle(
   color: Colors.white,
   fontFamily: 'OpenSans',
