@@ -31,37 +31,51 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin{
     }
   }
  
+// @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: new TabBarView(
+//         controller: controller,
+//         children: <Widget>[
+//           new maps.Maps(),
+//           new bus_schedule.BusSchedule(),
+//           new profile.Profile()
+//         ],
+//       ),
 @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new TabBarView(
-        controller: controller,
-        children: <Widget>[
-          new maps.Maps(),
-          new bus_schedule.BusSchedule(),
-          new profile.Profile()
-        ],
-      ),
-      bottomNavigationBar: new Material(
-        color: Colors.indigo[900],
-        child: new TabBar(
-          controller: controller,
-          tabs: <Widget>[
-            new Tab(
-              icon: new Icon(Icons.location_on),
-            ),
-            new Tab(
-              icon: new Icon(Icons.departure_board),
-            ),
-            new Tab(
-              icon: new Icon(Icons.face),
-            ),
-          ],
-        ),
+      // appBar: AppBar(
+      //   elevation:1,
+      //   title: Text('Bottom App'),),
+      
+      bottomNavigationBar: BottomNavyBar(
       ),
     );
-      }
+  }
 }
+
+      
+//       bottomNavigationBar: new Material(
+//         color: Colors.indigo[900],
+//         child: new TabBar(
+//           controller: controller,
+//           tabs: <Widget>[
+//             new Tab(
+//               icon: new Icon(Icons.location_on),
+//             ),
+//             new Tab(
+//               icon: new Icon(Icons.departure_board),
+//             ),
+//             new Tab(
+//               icon: new Icon(Icons.face),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//       }
+// }
 
 // @override
 //   Widget build(BuildContext context) {
@@ -83,4 +97,113 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin{
 //       drawer: Drawer(),
 //     );
 //   }
-// }
+
+
+class BottomNavyBar extends StatefulWidget {
+
+  @override
+  State<StatefulWidget> createState()
+  {
+    return _BottomNavyBarState();
+  } 
+  // _BottomNavyBarState createState() => _BottomNavyBarState();
+}
+
+class _BottomNavyBarState extends State<BottomNavyBar> {
+
+  int selectedIndex = 0;
+  Color backgroundColor = Colors.white;
+
+  List<NavigationItem> items = [
+    NavigationItem(Icon(Icons.location_on, color: Colors.red[900],), Text('Maps', style: TextStyle(color: Colors.red[900])), Colors.red[100]),
+    NavigationItem(Icon(Icons.departure_board, color: Colors.purple[900]), Text('Schedule', style: TextStyle(color: Colors.purple[900])), Colors.purple[100]),
+    NavigationItem(Icon(Icons.face, color: Colors.green[600]), Text('Profile', style: TextStyle(color: Colors.green[600])), Colors.green[100]),
+  ];
+
+  Widget _buildItem(NavigationItem item, bool isSelected){
+      return AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        height: double.maxFinite,
+        width: isSelected ? 125 : 50 ,
+        padding: isSelected ?
+        EdgeInsets.only(left: 16, right: 16)
+        : EdgeInsets.only(left: 8, right: 8),
+        decoration: isSelected ? BoxDecoration(
+          color: item.color,
+          borderRadius: BorderRadius.all(Radius.circular(10))
+          // shape: 
+        ) : null,
+        child: ListView(
+          
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+              IconTheme(
+              data: IconThemeData(
+                size: 26,
+                color: isSelected ? backgroundColor : Colors.black
+              ),
+              child: item.icon,
+            ), Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: isSelected ? 
+              DefaultTextStyle.merge(
+                style: TextStyle(
+                  color: backgroundColor
+                ),
+                child: item.title
+              )
+               : Container(),
+            )
+            ],)
+          ],
+        ),
+      );
+    }
+  
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        // color: Colors.amber,
+        height: 56,
+        padding: EdgeInsets.all(7),
+        // padding: EdgeInsets.only(left:8, top:4, bottom:4, right:8),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          boxShadow:[
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 5
+            )
+          ]
+        ),
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: items.map((item){
+            var itemIndex = items.indexOf(item);
+
+            return GestureDetector(
+              onTap:(){
+                setState(() {
+                  selectedIndex = itemIndex;
+                });
+              },
+              child: _buildItem(item, selectedIndex == itemIndex),
+            );
+          }).toList(),
+        ),
+      );
+    }
+  }
+  
+  class NavigationItem {
+    final Icon icon;
+    final Text title;
+    final Color color;
+    
+
+  NavigationItem(this.icon, this.title, this.color,);
+}
