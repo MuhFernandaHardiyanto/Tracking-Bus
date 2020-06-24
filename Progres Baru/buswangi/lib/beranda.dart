@@ -14,15 +14,15 @@ class Beranda extends StatefulWidget {
 class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin{
 
  SharedPreferences sharedPreferences;
- TabController controller;
+//  TabController controller;
 
-  @override
-  void initState() {
-    controller =
-        new TabController(vsync: this, length: 3);
-    super.initState();
-    checkLoginStatus();
-  }
+//   @override
+//   void initState() {
+//     controller =
+//         new TabController(vsync: this, length: 3);
+//     super.initState();
+//     checkLoginStatus();
+//   }
 
   checkLoginStatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
@@ -113,6 +113,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
 
   int selectedIndex = 0;
   Color backgroundColor = Colors.white;
+  TabController controller;
 
   List<NavigationItem> items = [
     NavigationItem(Icon(Icons.location_on, color: Colors.red[900],), Text('Maps', style: TextStyle(color: Colors.red[900])), Colors.red[100]),
@@ -134,7 +135,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
           // shape: 
         ) : null,
         child: ListView(
-          
+          // controller: controller,
           scrollDirection: Axis.horizontal,
           children: <Widget>[
             Row(
