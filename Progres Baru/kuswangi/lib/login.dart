@@ -1,12 +1,12 @@
-import 'package:buswangi/beranda1.dart';
-import 'beranda1.dart';
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'komponen.dart';
 import 'register.dart';
+import 'beranda.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -303,7 +303,7 @@ class _LoginState extends State<Login> {
         sharedPreferences.setString("api_token", jsonResponse["data"]["api_token"]);
         print(json.encode(jsonResponse["data"]["api_token"]));
         // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Beranda()), (Route<dynamic> route) => false);
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Beranda1()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Beranda()));
       }
     }
     else {
