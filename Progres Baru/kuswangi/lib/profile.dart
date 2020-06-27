@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'komponen.dart';
 
-class BusSchedule extends StatefulWidget {
+class Profile extends StatefulWidget {
   @override
-  _BusScheduleState createState() => _BusScheduleState();
+  _ProfileState createState() => _ProfileState();
 }
 
-class _BusScheduleState extends State<BusSchedule> {
+class _ProfileState extends State<Profile> {
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.indigo[900],
         title: new Center(child: new Text(
-          'CARI BUS',
+          'PROFILE AKUN',
           style: txtappbar,
         ),)
       ),

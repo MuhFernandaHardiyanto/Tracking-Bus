@@ -178,7 +178,8 @@ class _Beranda1State extends State<Beranda1> with SingleTickerProviderStateMixin
           new profile.Profile()
         ],
       ),
-      bottomNavigationBar: new Material(
+      bottomNavigationBar: 
+      new Material(
         color: Colors.indigo[900],
         child: new TabBar(
           controller: controller,
