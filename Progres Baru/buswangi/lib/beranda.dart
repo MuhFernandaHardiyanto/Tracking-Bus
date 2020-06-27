@@ -138,9 +138,6 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
           // controller: controller,
           scrollDirection: Axis.horizontal,
           children: <Widget>[
-            new maps.Maps(),
-            new bus_schedule.BusSchedule(),
-            new profile.Profile(),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
