@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'komponen.dart';
+import '../Widget/komponen.dart';
 
 class BusSchedule extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class _BusScheduleState extends State<BusSchedule> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.indigo[900],
+        backgroundColor: Colors.blueAccent,
         title: new Center(child: new Text(
           'CARI BUS',
           style: txtappbar,

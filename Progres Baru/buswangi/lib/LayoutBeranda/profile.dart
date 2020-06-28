@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'komponen.dart';
+import '../Widget/komponen.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class _ProfileState extends State<Profile> {
 Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.indigo[900],
+        backgroundColor: Colors.blueAccent,
         title: new Center(child: new Text(
           'PROFILE AKUN',
           style: txtappbar,

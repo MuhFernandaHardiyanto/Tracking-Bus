@@ -1,3 +1,4 @@
+import 'package:buswangi/beranda.dart';
 import 'package:buswangi/login.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: Login(),
+      home: Beranda(),
       // home: MyHomePage(title: 'Buswangi'),
     );
   }
