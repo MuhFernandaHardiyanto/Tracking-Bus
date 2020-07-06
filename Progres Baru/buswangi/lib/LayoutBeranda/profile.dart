@@ -8,15 +8,16 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   @override
-Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: new Center(child: new Text(
-          'PROFILE AKUN',
-          style: txtappbar,
-        ),)
-      ),
+          backgroundColor: Colors.blueAccent,
+          title: new Center(
+            child: new Text(
+              'PROFILE AKUN',
+              style: txtappbar,
+            ),
+          )),
     );
   }
 }

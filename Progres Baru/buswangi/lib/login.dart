@@ -13,10 +13,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
-  bool _isLoading = true;
+  // bool _isLoading = true;
   // bool ingatsaya = false;
   SharedPreferences sharedPreferences;
+  bool _secureText = true;
+  showhide() {
+    setState(() {
+      _secureText = !_secureText;
+    });
+  }
 
   // @override
   // void initState() {
@@ -33,97 +38,10 @@ class _LoginState extends State<Login> {
   //   }
   // }
 
-   @override
-  Widget build(BuildContext context) {
-     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent));
-     return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
-                ),
-              ),
-              Container(
-                  height: double.infinity,
-                  child: SingleChildScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 40.0,
-                      vertical: 120.0,
-                    ),
-                    // child: _isLoading ? Center(child: CircularProgressIndicator()) : ListView(
-                    // children: <Widget>?
-                    child: _isLoading ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image.asset(
-                          "assets/img/logo.png",
-                          width: 120.0,
-                        ),
-                        SizedBox(height: 20.0),
-                        txtmasuk(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        email(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        kataSandi(),
-                        lupaKataSandi(),
-                        // boxingatsaya(),
-                        btnMasuk(),
-                        daftarakun(),
-
-                      ],
-                    )
-                    : 
-                    AlertDialog (content: new Text
-                    ("Email dan Password Anda Salah, Silahkan Coba Kembali", 
-                    style: new TextStyle(fontSize: 20.0),
-                    ),
-                    actions: <Widget>[
-                      new RaisedButton(
-                        color: Colors.white70,
-                        child: new Text("oke"),
-                        onPressed: (){
-                          Navigator.pop(context);
-                        })
-                    ],
-                    ),
-                    // Container(child: Column(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: <Widget>[])
-                  ),
-                  )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   final TextEditingController emailControler = new TextEditingController();
   final TextEditingController passwordControler = new TextEditingController();
 
-  Widget txtmasuk(){
+  Widget txtmasuk() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -134,7 +52,7 @@ class _LoginState extends State<Login> {
       ],
     );
   }
-             
+
   Widget email() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +67,7 @@ class _LoginState extends State<Login> {
           decoration: dekorasiKotak,
           height: 60.0,
           child: TextField(
-             controller: emailControler,
+            controller: emailControler,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(color: Colors.white, fontFamily: 'OpenSans'),
             decoration: InputDecoration(
@@ -159,7 +77,7 @@ class _LoginState extends State<Login> {
                 Icons.email,
                 color: Colors.white,
               ),
-              hintText: 'Masukkan email kamu',
+              hintText: 'Masukkan email',
               hintStyle: kotaktext,
             ),
           ),
@@ -185,7 +103,7 @@ class _LoginState extends State<Login> {
           height: 60.0,
           child: TextField(
             controller: passwordControler,
-            obscureText: true,
+            obscureText: _secureText,
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -197,7 +115,15 @@ class _LoginState extends State<Login> {
                 Icons.lock,
                 color: Colors.white,
               ),
-              hintText: 'Masukkan Kata Sandi Kamu',
+              suffixIcon: IconButton(
+                icon:
+                    Icon(_secureText ? Icons.visibility_off : Icons.visibility),
+                color: Colors.white,
+                onPressed: () {
+                  showhide();
+                },
+              ),
+              hintText: 'Masukkan Kata Sandi',
               hintStyle: kotaktext,
             ),
           ),
@@ -226,10 +152,9 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        // emailControler.text == "" || passwordControler.text == "" ? null :
         onPressed: () {
           setState(() {
-            _isLoading = true;
+            // _isLoading = true;
           });
           signIn(emailControler.text, passwordControler.text);
         },
@@ -282,6 +207,28 @@ class _LoginState extends State<Login> {
     );
   }
 
+  Future<void> _dialogLoginGagal() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: new Text(
+              "Email dan Password Anda Salah, Silahkan Coba Kembali",
+              style: new TextStyle(fontSize: 20.0),
+            ),
+            actions: <Widget>[
+              new RaisedButton(
+                  color: Colors.white70,
+                  child: new Text("oke"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  })
+            ]);
+      },
+    );
+  }
+
   signIn(String email, password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map data = {
@@ -307,10 +254,98 @@ class _LoginState extends State<Login> {
     }
     else {
       setState(() {
-        _isLoading = false;
+        // _isLoading = false;
+        _dialogLoginGagal();
       });
       print(response.body);
     }
   }
 
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+        .copyWith(statusBarColor: Colors.transparent));
+    return Scaffold(
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xFF73AEF5),
+                      Color(0xFF61A4F1),
+                      Color(0xFF478DE0),
+                      Color(0xFF398AE5),
+                    ],
+                    stops: [0.1, 0.4, 0.7, 0.9],
+                  ),
+                ),
+              ),
+              Container(
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 120.0,
+                  ),
+                  // child: _isLoading ? Center(child: CircularProgressIndicator()) : ListView(
+                  // children: <Widget>?
+                  child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset(
+                              "assets/img/logo.png",
+                              width: 120.0,
+                            ),
+                            SizedBox(height: 20.0),
+                            txtmasuk(),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            email(),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            kataSandi(),
+                            lupaKataSandi(),
+                            // boxingatsaya(),
+                            btnMasuk(),
+                            daftarakun(),
+                          ],
+                        )
+                      // : _dialogLoginGagal()
+                      // AlertDialog(
+                      //     content: new Text(
+                      //       "Email dan Password Anda Salah, Silahkan Coba Kembali",
+                      //       style: new TextStyle(fontSize: 20.0),
+                      //     ),
+                      //     actions: <Widget>[
+                      //       new RaisedButton(
+                      //           color: Colors.white70,
+                      //           child: new Text("oke"),
+                      //           onPressed: () {
+                      //             Navigator.pop(context);
+                      //           })
+                      //     ],
+                      //   ),
+                  // Container(child: Column(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: <Widget>[])
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

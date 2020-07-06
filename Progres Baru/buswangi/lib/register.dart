@@ -5,24 +5,33 @@ import 'Widget/komponen.dart';
 
 class Register extends StatefulWidget {
   @override
-  
   _RegisterState createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
+  bool _secureText = true;
+  showhide() {
+    setState(() {
+      _secureText = !_secureText;
+    });
+  }
 
-Widget txtdaftar(){
+  final TextEditingController nameControler = new TextEditingController();
+  final TextEditingController emailControler = new TextEditingController();
+  final TextEditingController passwordControler = new TextEditingController();
+  final TextEditingController comfirmPasswordControler = new TextEditingController();
+
+  Widget txtdaftar() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Text(
           'Register',
           style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'OpenSans',
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold
-          ),
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold),
         )
       ],
     );
@@ -42,6 +51,7 @@ Widget txtdaftar(){
           decoration: dekorasiKotak,
           height: 60.0,
           child: TextField(
+            controller: nameControler,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(color: Colors.white, fontFamily: 'OpenSans'),
             decoration: InputDecoration(
@@ -74,6 +84,7 @@ Widget txtdaftar(){
           decoration: dekorasiKotak,
           height: 60.0,
           child: TextField(
+            controller: emailControler,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(color: Colors.white, fontFamily: 'OpenSans'),
             decoration: InputDecoration(
@@ -92,7 +103,7 @@ Widget txtdaftar(){
     );
   }
 
-   Widget katasandi() {
+  Widget katasandi() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -108,7 +119,8 @@ Widget txtdaftar(){
           decoration: dekorasiKotak,
           height: 60.0,
           child: TextField(
-            obscureText: true,
+            controller: passwordControler,
+            obscureText: _secureText,
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -120,7 +132,15 @@ Widget txtdaftar(){
                 Icons.lock,
                 color: Colors.white,
               ),
-              hintText: 'Masukkan Kata Sandi Kamu',
+              suffixIcon: IconButton(
+                icon:
+                    Icon(_secureText ? Icons.visibility_off : Icons.visibility),
+                color: Colors.white,
+                onPressed: () {
+                  showhide();
+                },
+              ),
+              hintText: 'Masukkan Kata Sandi',
               hintStyle: kotaktext,
             ),
           ),
@@ -129,8 +149,7 @@ Widget txtdaftar(){
     );
   }
 
-
-Widget ulangikatasandi() {
+  Widget ulangikatasandi() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -146,7 +165,8 @@ Widget ulangikatasandi() {
           decoration: dekorasiKotak,
           height: 60.0,
           child: TextField(
-            obscureText: true,
+            controller: comfirmPasswordControler,
+            obscureText: _secureText,
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -158,7 +178,15 @@ Widget ulangikatasandi() {
                 Icons.lock,
                 color: Colors.white,
               ),
-              hintText: 'Masukkan Kata Sandi Kamu',
+              suffixIcon: IconButton(
+                icon:
+                    Icon(_secureText ? Icons.visibility_off : Icons.visibility),
+                color: Colors.white,
+                onPressed: () {
+                  showhide();
+                },
+              ),
+              hintText: 'Ulangi Kata Sandi',
               hintStyle: kotaktext,
             ),
           ),
@@ -167,7 +195,6 @@ Widget ulangikatasandi() {
     );
   }
 
-  
   Widget btnDaftar() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
@@ -224,7 +251,7 @@ Widget ulangikatasandi() {
     );
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -251,45 +278,47 @@ Widget ulangikatasandi() {
                 ),
               ),
               Container(
-                  height: double.infinity,
-                  child: SingleChildScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 40.0,
-                      vertical: 120.0,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image.asset(
-                          "assets/img/logo.png",
-                          width: 120.0,
-                        ),
-                        SizedBox(height: 20.0),
-                        txtdaftar(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        nama(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        email(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        katasandi(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        ulangikatasandi(),
-                        btnDaftar(),
-                        memilikiakun(),
-
-                      ],
-                    ),
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 120.0,
                   ),
-                  )
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        "assets/img/logo.png",
+                        width: 120.0,
+                      ),
+                      SizedBox(height: 20.0),
+                      txtdaftar(),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      nama(),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      email(),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      katasandi(),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      ulangikatasandi(),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      btnDaftar(),
+                      memilikiakun(),
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         ),

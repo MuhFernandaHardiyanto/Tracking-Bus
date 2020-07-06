@@ -11,12 +11,13 @@ class _BusScheduleState extends State<BusSchedule> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: new Center(child: new Text(
-          'CARI BUS',
-          style: txtappbar,
-        ),)
-      ),
+          backgroundColor: Colors.blueAccent,
+          title: new Center(
+            child: new Text(
+              'CARI BUS',
+              style: txtappbar,
+            ),
+          )),
     );
   }
 }

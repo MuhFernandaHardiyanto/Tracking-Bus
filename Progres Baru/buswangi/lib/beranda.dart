@@ -12,17 +12,16 @@ class Beranda extends StatefulWidget {
   _BerandaState createState() => _BerandaState();
 }
 
-class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin{
+class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin {
+ SharedPreferences sharedPreferences;
+  int pageIndex = 0;
 
-//  SharedPreferences sharedPreferences;
-    int pageIndex = 0;
-
-  // checkLoginStatus() async {
-  //   sharedPreferences = await SharedPreferences.getInstance();
-  //   if(sharedPreferences.getString("api_token") == null) {
-  //     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) =>   Login()), (Route<dynamic> route) => false);
-  //   }
-  // }  
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if(sharedPreferences.getString("api_token") == null) {
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) =>   Login()), (Route<dynamic> route) => false);
+    }
+  }
 
   final Maps _maps = Maps();
   final BusSchedule _busSchedule = BusSchedule();
@@ -30,21 +29,24 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin{
 
   Widget _showPage = new Maps();
 
-  Widget _pageChooser(int page){
-    switch (page){
+  Widget _pageChooser(int page) {
+    switch (page) {
       case 0:
-      return _maps;
+        return _maps;
       case 1:
-      return _busSchedule;
+        return _busSchedule;
       case 2:
-      return _profile;
-      break;
+        return _profile;
+        break;
       default:
-      return new Container(
-        child: new Center(
-          child: new Text('No Page Found', style: new TextStyle(fontSize: 30.0),),
-        ),
-      );
+        return new Container(
+          child: new Center(
+            child: new Text(
+              'No Page Found',
+              style: new TextStyle(fontSize: 30.0),
+            ),
+          ),
+        );
     }
   }
 
@@ -52,11 +54,15 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: CurvedNavigationBar(
-          index : pageIndex,
+          index: pageIndex,
           height: 50.0,
           items: <Widget>[
             Icon(Icons.location_on, size: 30, color: Colors.red[900]),
-            Icon(Icons.departure_board, size: 30, color: Colors.purple[900],),
+            Icon(
+              Icons.departure_board,
+              size: 30,
+              color: Colors.purple[900],
+            ),
             Icon(Icons.face, size: 30, color: Colors.green[600]),
           ],
           color: Colors.white,
