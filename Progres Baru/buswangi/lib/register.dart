@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login.dart';
 import 'Widget/komponen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'Widget/dialogGagal.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -201,7 +204,12 @@ class _RegisterState extends State<Register> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => print('berhasil Daftar'),
+        onPressed: () {
+          setState(() {
+            // _isLoading = true;
+          });
+          register(nameControler.text, emailControler.text, passwordControler.text);
+        },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -249,6 +257,41 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+  }
+
+  register(String name, email, password) async {
+    Map data = {
+      'name' : name,
+      'email': email,
+      'password': password
+    };
+    var jsonResponse;
+    var response = await http.post("http://192.168.43.94:8000/register_penumpang", body: data);
+    print(response.statusCode);
+    if(response.statusCode == 200) {
+      jsonResponse = json.decode(response.body);
+      
+      if(jsonResponse != null) {
+        // setState(() {
+        //   _isLoading = false;
+        // });
+        // sharedPreferences.setString("RHFnamF5VWYydVI2QzVkbTZyTUdYR1lMUnRqRDhDQTJTbkVVN2tIMQ==", jsonResponse['RHFnamF5VWYydVI2QzVkbTZyTUdYR1lMUnRqRDhDQTJTbkVVN2tIMQ==']);
+        // sharedPreferences.setString("api_token", jsonResponse["data"]["api_token"]);
+        print(json.encode(jsonResponse["data"]));
+        // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Beranda()), (Route<dynamic> route) => false);
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Login()));
+      }
+    }
+    else {
+      setState(() {
+        // _isLoading = false;
+        DialogGagal(
+          title: "Gagal",
+          description: "Email dan Password Anda salah, Silahkan coba kembali",
+        );
+      });
+      print(response.body);
+    }
   }
 
   @override

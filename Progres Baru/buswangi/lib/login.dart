@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Widget/komponen.dart';
 import 'register.dart';
 import 'beranda.dart';
+import 'Widget/dialogGagal.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -207,27 +209,77 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Future<void> _dialogLoginGagal() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-            content: new Text(
-              "Email dan Password Anda Salah, Silahkan Coba Kembali",
-              style: new TextStyle(fontSize: 20.0),
-            ),
-            actions: <Widget>[
-              new RaisedButton(
-                  color: Colors.white70,
-                  child: new Text("oke"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  })
-            ]);
-      },
-    );
-  }
+  // Future<void> _dialogLoginGagal() async {
+  //   return showDialog<void>(
+  //     context: context,
+  //     barrierDismissible: false, // user must tap button!
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //           content: new Text(
+  //             "Email dan Password Anda Salah, Silahkan Coba Kembali",
+  //             style: new TextStyle(fontSize: 20.0),
+  //           ),
+  //           actions: <Widget>[
+  //             new RaisedButton(
+  //                 color: Colors.white70,
+  //                 child: new Text("oke"),
+  //                 onPressed: () {
+  //                   Navigator.pop(context);
+  //                 })
+  //           ]);
+  //     },
+  //   );
+  // }
+
+  // Future<void> _dialogLoginGagal() async {
+  //     return showDialog<void>(
+  //       context: context,
+  //       builder: (context){
+  //         return Dialog(
+  //           shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(20.0),
+  //           ),
+  //           child: Container(
+  //             height: 200,
+  //             child: Padding(
+  //               padding: EdgeInsets.all(12.0),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: <Widget>[
+  //                   TextField(
+  //                     decoration: InputDecoration(
+  //                       border: InputBorder.none,
+  //                      hintText:
+  //                       "Email dan Password Anda Salah, \n Silahkan Coba Kembali"
+  //                      ),
+  //                     ),
+  //                     SizedBox(
+  //                       width: 320.0,
+  //                       child: RaisedButton(
+  //                         color: Colors.lightGreen,
+  //                         onPressed: () {
+  //                           Navigator.pop(context);
+  //                         },
+  //                         child: new Text(
+  //                           "oke",
+  //                           style: TextStyle(
+  //                             color: Colors.red
+  //                           ),
+  //                           ),
+  //                       )
+  //                     )
+  //                 ],
+  //               ),
+  //             )
+  //           ),
+  //         );
+  //       }
+  //     );
+
+  // }
+
+  
 
   signIn(String email, password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -255,7 +307,11 @@ class _LoginState extends State<Login> {
     else {
       setState(() {
         // _isLoading = false;
-        _dialogLoginGagal();
+        // DialogGagal(
+        //   title: "Gagal",
+        //   description: "Email dan Password Anda salah, Silahkan coba kembali",
+        // );
+        DialogGagal();
       });
       print(response.body);
     }
